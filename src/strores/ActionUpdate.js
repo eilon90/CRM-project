@@ -1,5 +1,4 @@
 import {observable, makeObservable, action} from 'mobx';
-import { observer } from 'mobx-react';
 const axios = require('axios');
 
 export class ActionsUpdate {
@@ -7,7 +6,7 @@ export class ActionsUpdate {
         this.dataToUpdate = [];
         this.clientId = 0;
         this.owners = [];
-        this.ownerToUpdate = 0;
+        this.ownerToUpdate = '';
         this.mailToSend = '';
 
         makeObservable(this, {

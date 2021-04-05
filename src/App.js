@@ -1,19 +1,30 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import './App.css';
 import NavBar from './components/navBar/NavBar';
 import Container from './components/Container';
-
-//----- option 1
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 class App extends Component {
 
   render() {
+    const theme = createMuiTheme({
+      palette: {
+        primary: {
+          main: '#242424'
+        },
+        secondary: {
+          main: 'rgba(233, 203, 31, 0.822)'
+        }
+      }
+    })
+
     return (
       <div id = "main-container">
         <Router>
-          <NavBar/>
-          <Container/>
+          <ThemeProvider theme = {theme}>
+            <NavBar/>
+            <Container/>
+          </ThemeProvider>
         </Router>
       </div>
     )
@@ -21,15 +32,3 @@ class App extends Component {
 }
 
 export default App;
-
-// ---- option 2
-
-// export default function App() {
-
-//   return (
-//     <div>
-//       <h1>hi</h1>
-//     </div>
-//   )
-// }
-

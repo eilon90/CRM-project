@@ -8,8 +8,8 @@ export class AddClient {
         this.firstName = '';
         this.lastName = '';
         this.email = '';
-        this.owner = 0;
-        this.country = 0;
+        this.owner = '';
+        this.country = '';
         this.owners = [];
         this.countries = [];
 

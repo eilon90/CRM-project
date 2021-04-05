@@ -1,17 +1,20 @@
 import { reaction } from "mobx";
 import React, {Component} from 'react';
+import {makeStyles} from '@material-ui/core'
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 
 export default function tableHeader() {
-
+    
     return (
-        <tr id = "table-title">
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Country</th>
-            <th>First Contact</th>
-            <th>Email</th>
-            <th>Sold</th>
-            <th>Owner</th>
-        </tr> 
+        <TableRow style = {{backgroundColor: 'rgba(233, 203, 31, 0.822)', boxShadow: '3px 3px #999'}}>
+            <TableCell>Name</TableCell>
+            <TableCell>Surname</TableCell>
+            <TableCell>Country</TableCell>
+            <TableCell>First Contact</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Sold</TableCell>
+            <TableCell>Owner</TableCell>
+        </TableRow> 
     )
 }

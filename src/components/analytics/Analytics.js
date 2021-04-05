@@ -1,7 +1,8 @@
-import React, {Component, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {observer, inject} from 'mobx-react';
 import Badges from './badges/Badges';
 import Charts from './charts/Charts';
+import { makeStyles } from '@material-ui/core';
 
 const Analytics = inject('myClients')
 (observer((props) => {
@@ -10,9 +11,18 @@ const Analytics = inject('myClients')
         props.myClients.getClients();
     }, []);
 
+    const useStyles = makeStyles(() => ({
+        analytics: {
+            height: '100%',
+            width: '100%',
+            display: 'grid',
+            gridTemplateRows: '3fr 9fr'
+        }
+    }))
+    const classes = useStyles();
+
     return (
-        <div id = "analytics">
-            <button onClick = {() => console.log(props.myClients.acquisition)}></button>
+        <div id = "analytics" className = {classes.analytics}>
             <Badges/>
             <Charts/>
         </div>

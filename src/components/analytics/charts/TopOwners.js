@@ -1,18 +1,19 @@
-import React, {Component, useEffect} from 'react';
+import React from 'react';
 import {observer, inject} from 'mobx-react';
 import {ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Label } from 'recharts';
+import { Typography } from '@material-ui/core';
 
-const TopOwmers = inject('myClients')
+const TopOwners = inject('myClients')
 (observer((props) => {
 
     return (
         <div id = "top-owners">
-            <h2 className = "charts-details">Top Employees</h2>
+            <Typography variant = 'h5' style = {{fontWeight: 'bold', marginLeft: '10%'}}>Top Employees</Typography>
             <ResponsiveContainer width={730} height={250} >
                 <BarChart width={730} height={250} data={props.myClients.topOwners} layout = "vertical" barCategoryGap = "35%">
                     <CartesianGrid strokeDasharray="3" />
                     <XAxis type="number">
-                    <Label value = "Sales" offset = {-10} position="insideBottom"/>    
+                    <Label value = "Sales" offset = {-5} position="insideBottom"/>    
                     </XAxis> 
                     <YAxis type="category" width={50} dataKey="owner"/>
                     <Tooltip />
@@ -23,4 +24,4 @@ const TopOwmers = inject('myClients')
     )
 }))
 
-export default TopOwmers;
+export default TopOwners;

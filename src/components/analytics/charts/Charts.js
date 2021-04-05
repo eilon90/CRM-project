@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
-import TopOwmers from './TopOwners';
+import TopOwners from './TopOwners';
 import SalesCountry from './SalesCountry';
 import SalesByDate from './SalesByDate';
-import Acquisition from './Acquisition';
 
 class Charts extends Component {
 
     render() {
         return (
-            <div>
-                <TopOwmers/>
+            <div style = {{display: 'flex', flexDirection: 'column', marginTop: '2%'}}>
+                <div style = {{display: 'flex', justifyContent: 'space-around'}}>
+                    <TopOwners/>
+                    <SalesByDate/>
+                </div>
                 <SalesCountry/>
-                <SalesByDate/>
-                <Acquisition/>
             </div>
         )
     }

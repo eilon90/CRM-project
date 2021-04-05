@@ -8,7 +8,7 @@ class Badges extends Component {
 
     render() {
         return (
-            <div>
+            <div style = {{display: 'flex', justifyContent: 'space-around'}}>
                 <NewClients/>
                 <EmailsSent/>
                 <Outstanding/>

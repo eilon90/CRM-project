@@ -1,5 +1,4 @@
 import {makeObservable, observable, action, computed} from 'mobx';
-// import { OBSERVABLE_SHALLOW } from 'mobx/dist/internal';
 import {Client} from './Client';
 const axios = require ('axios');
 const moment = require('moment');
@@ -8,15 +7,22 @@ export class Clients {
     constructor() {
         this.clients = [];
         this.group = 1;
+        this.searchCategory = 'Name';
+        this.searchChars = '';
 
         makeObservable(this, {
             clients: observable,
             group: observable,
+            searchCategory: observable,
+            searchChars: observable,
             addClient: action,
             getClients: action,
             nextGroup: action,
             formerGroup: action,
             updateClient: action,
+            updateSearchChars: action,
+            changeCategory: action,
+            clientsToDisplay: computed,
             numOfGroups: computed,
             yearClients: computed,
             monthClients: computed,
@@ -58,8 +64,39 @@ export class Clients {
         await axios.put(`http://localhost:4000/client/${client.id}/${client.firstName}/${client.lastName}/${client.country}`);
     }
 
+    updateSearchChars(newChars) {
+        this.searchChars = newChars;
+        this.group = 1;
+    }
+
+    changeCategory(newCategory) {
+        this.searchCategory = newCategory;
+        this.searchChars = '';
+        this.group = 1;
+    }
+
+    get clientsToDisplay() {
+
+        let filteredClients = [];
+
+        switch (this.searchCategory) {
+            case 'Name': filteredClients = this.clients.filter(c => c.firstName.toLowerCase().includes(this.searchChars.toLowerCase()) || c.lastName.toLowerCase().includes(this.searchChars.toLowerCase()));
+            break;
+            case 'Country': filteredClients = this.clients.filter(c => c.country.toLowerCase().includes(this.searchChars.toLowerCase()));
+            break;
+            case 'Sold': filteredClients = this.clients.filter(c => c.sold);
+            break;
+            case 'Unsold': filteredClients = this.clients.filter(c => !c.sold);
+            break;
+            default: filteredClients = this.clients
+            break;
+        }
+
+        return filteredClients;
+    }
+
     get numOfGroups() {
-        return this.clients.length % 20 === 0 ? this.clients.length / 20 : Math.floor(this.clients.length / 20) + 1;
+        return this.clientsToDisplay.length % 20 === 0 ? this.clientsToDisplay.length / 20 : Math.floor(this.clientsToDisplay.length / 20) + 1;
     }
 
     get yearClients() {
@@ -176,7 +213,7 @@ export class Clients {
             }
             return obj;
         })
-        datesArr.push({date: 'Jan-03', numOfSales: 4}, {date: 'Jan-01', numOfSales: 2}, {date: 'Dec-27', numOfSales: 5}, {date: 'Dec-16', numOfSales: 3}); //"fake" data
+        datesArr.push({date: moment().subtract(6, 'days').format('MMM-DD'), numOfSales: 2}, {date: moment().subtract(17, 'days').format('MMM-DD'), numOfSales: 5}, {date: moment().subtract(21, 'days').format('MMM-DD'), numOfSales: 3},{date: moment().subtract(28, 'days').format('MMM-DD'), numOfSales: 4}); //"fake" data
         datesArr.sort(function (a, b) {
             return moment(b.numOfClients) - moment(a.numOfClients);
         })

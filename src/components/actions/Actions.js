@@ -1,7 +1,8 @@
-import React, {Component, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import Update from './Update';
 import Addclient from './AddClient';
 import { inject, observer } from 'mobx-react';
+import {Divider, makeStyles} from '@material-ui/core'
 
 const Actions = inject('actionsUpdate', 'addClient') 
 (observer((props) => {
@@ -13,10 +14,18 @@ const Actions = inject('actionsUpdate', 'addClient')
         props.addClient.getCountries();
     }, []);
 
+    const useStyles = makeStyles(() => ({
+        actions: {
+            fontFamily: 'arial',
+            marginLeft: '2%'
+        }
+    }))
+    const classes = useStyles();
 
         return (
-            <div id = "actions">
+            <div className = {classes.actions}>
                 <Update/>
+                <Divider/>
                 <Addclient/>
             </div>
         )
